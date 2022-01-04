@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
+
     @Autowired
     private PostService postService;
-
 
     @GetMapping("/{id}")
     public ResponseEntity<Post> findById(@PathVariable String id){
