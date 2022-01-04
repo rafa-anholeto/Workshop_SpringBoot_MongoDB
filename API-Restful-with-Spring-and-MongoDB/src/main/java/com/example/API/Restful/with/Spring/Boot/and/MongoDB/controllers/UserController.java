@@ -6,10 +6,7 @@ import com.example.API.Restful.with.Spring.Boot.and.MongoDB.services.UserService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +28,13 @@ public class UserController {
     public ResponseEntity<UserDTO> findById(@PathVariable String id){
         User obj = userService.findById(id);
         return new ResponseEntity<>(new UserDTO(obj), HttpStatus.OK);
-
-
     }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
+        User obj = userService.fromDTO(objDto);
+        obj = userService.insert(obj);
+        return new ResponseEntity(obj, HttpStatus.CREATED);
+    }
+
 }
