@@ -1,5 +1,6 @@
 package com.example.API.Restful.with.Spring.Boot.and.MongoDB.controllers;
 
+import com.example.API.Restful.with.Spring.Boot.and.MongoDB.domain.Post;
 import com.example.API.Restful.with.Spring.Boot.and.MongoDB.domain.User;
 import com.example.API.Restful.with.Spring.Boot.and.MongoDB.dto.UserDTO;
 import com.example.API.Restful.with.Spring.Boot.and.MongoDB.services.UserService;
@@ -49,6 +50,12 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable String id){
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = userService.findById(id);
+        return new ResponseEntity<>(obj.getPosts(), HttpStatus.OK);
     }
 
 
